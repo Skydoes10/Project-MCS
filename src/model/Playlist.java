@@ -10,15 +10,12 @@ public class Playlist{
 	
 	//Relationships
 	private Genre genres;
+	private Song[] songs;
 	
 	//Builder
 	public Playlist(String namePlaylist){
 		this.namePlaylist = namePlaylist;
 	}//End Builder
-	
-	public String toString(){
-		return "\n************* Playlist *************\n **  title: " +namePlaylist+ "\n **  Duration: " +duration+ "\n **  Genre: " +genre+ "\n********************************";
-	}
 	
 	//getters and setters
 	public String getNamePlaylist(){

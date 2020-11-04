@@ -20,10 +20,6 @@ public class User{
 		this.category = Category.NEWBIE;
 	}//End Builder
 	
-	public String toString(){
-		return "\n************* User *************\n **  UserName: " +userName+ "\n **  Age: " +age+ "\n **  Category: " +category+ "\n********************************";
-	}
-	
 	//getters and setters
 	public String getUserName(){
 		return userName;
@@ -47,6 +43,10 @@ public class User{
 	
 	public void setAge(int age){
 		this.age = age;
+	}
+	
+	public String toString(){
+		return "\n************* User *************\n **  UserName: " +userName+ "\n **  Age: " +age+ "\n **  Category: " +category+ "\n********************************";
 	}
 	
 }

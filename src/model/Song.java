@@ -19,10 +19,6 @@ public class Song{
 		this.genre = genre;
 	}//End Builder
 	
-	public String toString(){
-		return "\n************* Song *************\n **  Title: " +title+ "\n **  Artist: " +artistName+ "\n **  Duration: " +duration+ "\n **  Genre: " +genre+"\n********************************";
-	}
-	
 	//getters and setters
 	public String getTitle(){
 		return title;
@@ -62,5 +58,24 @@ public class Song{
 	
 	public void setGenre(Genre genre){
 		this.genre = genre;
+	}
+	
+	public String convertDuration() {
+		String converted = "";
+		int duration, minutes, seconds;
+		duration = getDuration();
+		minutes = duration/60;
+		seconds = duration-(minutes*60);
+		if(seconds < 10) {
+			converted = minutes +":0"+ seconds;
+		}
+		else {
+			converted = minutes +":"+ seconds;
+		}
+		return converted;
+	}
+	
+	public String toString(){
+		return "\n************* Song *************\n **  Title: " +title+ "\n **  Artist: " +artistName+ "\n **  Duration: " +convertDuration()+ "\n **  Genre: " +genre+"\n********************************";
 	}
 }

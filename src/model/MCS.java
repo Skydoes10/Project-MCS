@@ -27,68 +27,102 @@ public class MCS{
 	}//End Builder
 	
 	public String createUser(String userName, String password, int age){
-		String message = "";
-		boolean addUser = false;
+		String message = "El usuario ha sido registrado con exito";
+		boolean added = false;
 		User objSearch = findUser(userName);
-		
-		if (objSearch != null) {
-			message="El usuario ya esta registrado";
-		}
-		else {
-			for (int i = 0; i<MAX_USERS && !addUser; i++) {
-				if (users[i] == null){
-					users[i] = new User (userName, password, age);
-					addUser = true;
-					message = "El usuario ha sido registrado con exito";
+		if(objSearch == null){
+			for(int i = 0; i < MAX_USERS && !added; i++){
+				if(users[i] == null){
+					users[i] = new User(userName, password, age);
+					added = true;
 				}
 			}
-			if (addUser == false) {
+			if (added == false){
 				message = "Limite de usuarios alcanzado";
 			}
+		}
+		else{
+			message = "El usuario ya esta registrado";
 		}
 		return message;
 	}
 	
-	public String addSong(String title, String artistName, String releaseDate, int duration, String pGenre){
-		String message = "";
-		boolean addSg = false;
-		Song objSearch = findSong(title, artistName, releaseDate);
-		
-		if (objSearch != null) {
-			message="La cancion ya ha sido agregada anteriormente al Pool de canciones";
-		}
-		else {
-			Genre genre= Genre.valueOf(pGenre);
-			for (int i = 0; i<MAX_SONGS && !addSg; i++) {
-				if (songsPool[i] == null){
-					songsPool[i] = new Song (title, artistName, releaseDate, duration, genre);
-					addSg = true;
-					message = "El usuario ha sido registrado con exito";
+	public String addSong(String title, String artistName, String releaseDate, int duration, int pGenre){
+		String message = "La cancion ha sido agregada con exito";
+		boolean added = false;
+		Song objSearch = findSong(title, artistName);
+		if(objSearch == null){
+			Genre genre = null;
+			switch(pGenre){
+		    case 1: genre = Genre.ROCK;
+		        break;
+		    case 2: genre = Genre.HIPHOP;
+		        break;
+		    case 3: genre = Genre.CLASSICA;
+		    	break;
+		    case 4: genre = Genre.REGGAE;
+	    		break;
+		    case 5: genre = Genre.SALSA;
+	    		break;
+		    case 6: genre = Genre.METAL;
+	    		break;
+		    case 7: genre = Genre.POP;
+	    		break;
+			}
+			for(int i = 0; i < MAX_SONGS && !added; i++){
+				if(songsPool[i] == null){
+					songsPool[i] = new Song(title, artistName, releaseDate, duration, genre);
+					added = true;
 				}
 			}
-			if (addSg == false)
-				message = "Limite de usuarios alcanzado";  
+			if (added == false){
+				message = "Limite de canciones alcanzado";
+			}
+		}
+		else{
+			message = "La cancion ya ha sido agregada anteriormente";
 		}
 		return message;
+	}
+	
+	public String addPlayList(String namePL) {
+		String message = "La playlist se creo con exito";
+		boolean added = false;
+		Playlist objSearch = findPL(namePL);
+		if(objSearch == null){
+			for(int i = 0; i < MAX_PLAYLISTS && !added; i++){
+				if(playlists[i] == null){
+					playlists[i] = new PrivatePL(namePL);
+					added = true;
+				}
+			}
+			if (added == false){
+				message = "Limite de playlists alcanzado";
+			}
+		}
+		else{
+			message = "Una playlist con el mismo nombre ya ha sido creada";
+		}
+		return message;	
 	}
 	
 	public User findUser(String userName){
 		User objSearch = null;
 		boolean found = false;
-		for (int i = 0; i<MAX_USERS && !found; i++) {
-			if(users[i] != null && users[i].getUserName().equalsIgnoreCase(userName)) {
+		for(int i = 0; i < MAX_USERS && !found; i++){
+			if(users[i] != null && users[i].getUserName().equalsIgnoreCase(userName)){
 				objSearch = users[i];
 				found = true;
 			}
 		}
-		return objSearch;
+		return objSearch;	
 	}
 	
-	public Song findSong(String title,String artistName,String releaseDate){
+	public Song findSong(String title,String artistName){
 		Song objSearch = null;
 		boolean found = false;
 		for (int i = 0; i<MAX_SONGS && !found; i++) {
-			if(songsPool[i] != null && songsPool[i].getTitle().equalsIgnoreCase(title) && songsPool[i].getArtistName().equalsIgnoreCase(artistName) && songsPool[i].getReleaseDate().equalsIgnoreCase(releaseDate)) {
+			if(songsPool[i] != null && songsPool[i].getTitle().equalsIgnoreCase(title) && songsPool[i].getArtistName().equalsIgnoreCase(artistName)) {
 				objSearch = songsPool[i];
 				found = true;
 			}
@@ -96,31 +130,40 @@ public class MCS{
 		return objSearch;
 	}
 	
-	/*public boolean hasPlaceUser(){
-		
-		return ;
-	}
-	
-	public boolean hasPlaceSong(){
-		
-		return ;
-	}*/
-	
-	public String[] showUsers(){
-		String[] out = new String[MAX_USERS];
-		for (int i = 0; i<MAX_USERS; i++) {
-			out[i] = users[i].toString();
+	public Playlist findPL(String namePL){
+		Playlist objSearch = null;
+		boolean found = false;
+		for (int i = 0; i < MAX_PLAYLISTS && !found; i++) {
+			if(playlists[i] != null && playlists[i].getNamePlaylist().equalsIgnoreCase(namePL)) {
+				objSearch = playlists[i];
+				found = true;
+			}
 		}
-		return out;
+		return objSearch;
 	}
 	
-	public String[] showSongs(){
-		String[] out = new String[MAX_SONGS];
-		for (int i = 0; i<MAX_SONGS; i++) {
-			out[i] = songsPool[i].toString();
+	public void showUsers() {
+		for(int i = 0; i < MAX_USERS; i++) {
+			if(users[i] != null) {
+				System.out.println(users[i].toString());
+			}
 		}
-		return out;
 	}
 	
+	public void showSongs() {
+		for(int i = 0; i < MAX_SONGS; i++) {
+			if(songsPool[i] != null) {
+				System.out.println(songsPool[i].toString());
+			}
+		}
+	}
 	
+	public void showPlayLists() {
+		for(int i = 0; i < MAX_PLAYLISTS; i++) {
+			if(playlists[i] != null) {
+				System.out.println(playlists[i].toString());
+			}
+		}
+	}
+
 }
