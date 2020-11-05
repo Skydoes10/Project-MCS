@@ -4,17 +4,19 @@ public class Playlist{
 	//Constants
 	public static final int SIZE = 10;
 	
+	//Relationships
+	private Genre[] genres;
+	private Song[] songs;
+	
 	//Attributes
 	private String namePlaylist;
 	private int duration;
 	
-	//Relationships
-	private Genre genres;
-	private Song[] songs;
-	
 	//Builder
-	public Playlist(String namePlaylist){
+	public Playlist(String namePlaylist, int duration){
 		this.namePlaylist = namePlaylist;
+		this.duration = duration;
+		this.genres = genres;
 	}//End Builder
 	
 	//getters and setters
@@ -26,6 +28,14 @@ public class Playlist{
 		this.namePlaylist = namePlaylist;
 	}
 	
+	public int getDuration(){
+		return duration;
+	}
+	
+	public void setDuration(int duration){
+		this.duration = duration;
+	}
+	
 	public Song[] getSongs(){
 		return songs;
 	}
@@ -34,15 +44,11 @@ public class Playlist{
 		this.songs = songs;
 	}
 	
-	public int getDuration(){
-		return duration;
-	}
-	
 	public int getPLduration(){
 		return PLduration;
 	}
 
-	public Genre getPLpopularGenre(){
-		return PLpopularGenre;
+	public Genre[] getPLGenres(){
+		return PLGenres;
 	}
 }
