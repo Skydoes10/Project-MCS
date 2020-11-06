@@ -1,6 +1,6 @@
 package model;
 
-public class Playlist{
+abstract public class Playlist{
 	//Constants
 	public static final int SIZE = 10;
 	
@@ -16,7 +16,7 @@ public class Playlist{
 	public Playlist(String namePlaylist, int duration){
 		this.namePlaylist = namePlaylist;
 		this.duration = duration;
-		this.genres = genres;
+		genres = new Genre[SIZE];
 	}//End Builder
 	
 	//getters and setters
@@ -43,12 +43,32 @@ public class Playlist{
 	public void setSongs(Song[] songs){
 		this.songs = songs;
 	}
+
+	public void setPLGenres(Genre[] genres){
+		this.genres = genres;
+	}
+	
+	public Genre[] getPLGenres(){
+		return genres;
+	}
 	
 	public int getPLduration(){
+		
 		return PLduration;
 	}
-
-	public Genre[] getPLGenres(){
-		return PLGenres;
+	
+	public String convertDuration() {
+		String converted = "";
+		int duration, minutes, seconds;
+		duration = getDuration();
+		minutes = duration/60;
+		seconds = duration-(minutes*60);
+		if(seconds < 10) {
+			converted = minutes +":0"+ seconds;
+		}
+		else {
+			converted = minutes +":"+ seconds;
+		}
+		return converted;
 	}
 }

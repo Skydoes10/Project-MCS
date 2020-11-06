@@ -17,16 +17,22 @@ public class SharedPL extends Playlist{
 		this.users = users;
 	}
 	
-	public String toString(){
-		return "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +getDuration()+ "\n **  Genre: " +getPLGenres()+ "\n **  Members: " +members()+ "\n********************************";
+	public String toString(){ 
+		String out;
+		if(getPLGenres().length == 0) {
+			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +getDuration()+ "\n **  Genre:  \n **  Members: " +members()+ "\n************************************";
+		}
+		else {
+			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +getDuration()+ "\n **  Genre: " +getPLGenres()+ "\n **  Members: " +members()+ "\n************************************";
+		}
+		return out;
 	}
 	
 	public String members() {
-		return "\n" +
-				 "   **  "+users[0] +
-				 "   **  "+users[1] +
-				 "   **  "+users[2] +
-				 "   **  "+users[3] +
-				 "   **  "+users[4];
+		return 	 "\n   **  "+users[0] +
+				 "\n   **  "+users[1] +
+				 "\n   **  "+users[2] +
+				 "\n   **  "+users[3] +
+				 "\n   **  "+users[4];
 	}
 }

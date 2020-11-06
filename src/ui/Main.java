@@ -22,15 +22,16 @@ public class Main{
 		boolean menu = true;
 		int option;
 		while(menu) {
-			System.out.println("\n**********************************************" +
+			System.out.println("\n**********************************************************" +
 								"\nSeleccione una opción para empezar:\n" + 
-								"\n(1) crear un nuevo usuario" + 
-								"\n(2) Agregar cancion" + 
-								"\n(3) crear una nueva playlist" + 
-								"\n(4) mostrar lista de todos los usuarios registrados" + 
-								"\n(5) mostrar lista de todas las canciones del Pool" +
-								"\n(0) salir" +
-								"\n**********************************************"
+								"\n(1) Crear un nuevo usuario" + 
+								"\n(2) Agregar cancion al Pool" + 
+								"\n(3) Agregar una cancion a una Playlist" + 
+								"\n(4) Crear una nueva playlist" + 
+								"\n(5) Mostrar informacion" + 
+								"\n(6) " +
+								"\n(0) Salir" +
+								"\n**********************************************************"
 								);
 		option = sc.nextInt();
 		sc.nextLine();
@@ -39,17 +40,19 @@ public class Main{
 				break;
 			case 2: addMSong();
 				break;
-			case 3: menu2();
+			case 3: menu2(option);
 				break;
-			case 4: listUsers();
+			case 4: menu2(option);
 				break;
-			case 5: listSongs();
+			case 5: menu3();
+				break;
+			case 6: 
 				break;
 			case 0: menu = false;
 					System.out.println("\nBye!");
 				break;
 			default:
-					System.out.println("Error, opción no válida");
+					System.out.println("\nError, opción no válida");
 		}
 		}
 	}
@@ -95,7 +98,7 @@ public class Main{
 				);
 	}
 	
-	public void menu2() {
+	public void menu2(int opt) {
 		boolean menu = true;
 		while(menu) {
 			System.out.println(
@@ -109,16 +112,70 @@ public class Main{
 					);
 			int option = sc.nextInt();
 			sc.nextLine();
-			switch(option) {
-				case 1:	createPL(option);
+			if(opt == 3) {
+				switch(option) {
+				case 1:	addSongtoPL(option);
+						menu = false;
 					break;
-				case 2:	createPL(option);
+				case 2:	addSongtoPL(option);
+						menu = false;
 					break;
-				case 3:	createPL(option);
+				case 3:	addSongtoPL(option);
+						menu = false;
 					break;
 				case 0:	menu = false;
 					break;
-				default: System.out.println("Opcion no valida");
+				default: System.out.println("\nOpcion no valida");
+				}
+			}
+			else {
+				switch(option) {
+				case 1:	createPL(option);
+						menu = false;
+					break;
+				case 2:	createPL(option);
+						menu = false;
+					break;
+				case 3:	createPL(option);
+						menu = false;
+					break;
+				case 0:	menu = false;
+					break;
+				default: System.out.println("\nOpcion no valida");
+				}
+			}
+		}
+	}
+	
+	
+	
+	public void menu3() {
+		boolean menu = true;
+		while(menu) {
+			System.out.println(
+					"\n************************************************************\n" +
+					"Digite la opcion deseada:\n" +
+					"(1) Mostrar lista de todos los usuarios registrados\n" +
+					"(2) Mostrar lista de todas las canciones del Pool\n"+
+					"(3) Mostrar lista de todas las Playlist\n"+ 
+					"(0) Para volver\n" +
+					"************************************************************\n"
+					);
+			int option = sc.nextInt();
+			sc.nextLine();
+			switch(option) {
+				case 1:	listUsers();
+						menu = false;
+					break;
+				case 2:	listSongs();
+						menu = false;
+					break;
+				case 3:	listPL();
+						menu = false;
+					break;
+				case 0:	menu = false;
+					break;
+				default: System.out.println("\nOpcion no valida");
 			}
 		}
 	}
@@ -176,48 +233,66 @@ public class Main{
 		mainMCS.showSongs();	
 	}
 	
-	/*public void createPL(int option) {
-		String namePL, userName;
-		System.out.println("Digite el nombre del usuario que va a crear la playlist:");
-		userName = sc.nextLine();
-		System.out.println("\nDigite el nombre de la playlist:");
-		namePL = sc.nextLine();
-		if(option == 1) {
-			String message = mainMCS.addPlayList(namePL);
-			System.out.println(message);
-		}
-		else if(option == 2) {
-			String message = mainMCS.addPlayList(namePL);
-			System.out.println(message);
-		}
-
-	}*/
-	
 	public void createPL(int option) {
 		String namePL, userName;
 		String[] userNames = new String[5];
 		System.out.println("\nDigite el nombre de la playlist:");
 		namePL = sc.nextLine();
 		if(option == 1) {
-			System.out.println("Digite el nombre del usuario que va a crear la playlist:");
+			String message = mainMCS.addPlayList(namePL);
+			System.out.println(message);
+		}
+		else if(option == 2) {
+			System.out.println("\nDigite el nombre del usuario que va a crear la playlist:");
 			userName = sc.nextLine();
 			String message = mainMCS.addPlayList(namePL, userName);
 			System.out.println(message);
 		}
-		else if(option == 2) {
-			System.out.println("Digite el nombre del usuario que va a crear la playlist:");
-			userNames[0] = sc.nextLine();
-			System.out.println("Digite el nombre de los demas integrantes de la playlist: \nNOTA: El usuario creador de la playlist es el integrante 1");
-			for(int i = 0; i < 5; i++) {
-				System.out.println("Integrante"+i+1);
-				userNames[i+1] = sc.nextLine();
-				String message = mainMCS.addPlayList(namePL, userNames);
-				System.out.println(message);
+		else if(option == 3) {
+			System.out.println("\nDigite el nombre de los 5 integrantes de la playlist: \nNOTA: El usuario creador de la playlist debe ser el integrante 1");
+			for(int i = 0; i < userNames.length; i++) {
+				System.out.println("\nIntegrante:");
+				userNames[i] = sc.nextLine();
 			}
+			String message = mainMCS.addPlayList(namePL, userNames);
+			System.out.println(message);
+		}	
+	}
+	
+	public void listPL() {
+		mainMCS.showPlayLists();	
+	}
+	
+	public void addSongtoPL(int option){
+		String namePL, nameSong, nameArtist, userName;
+		String[] userNames = new String[5];
+		System.out.println("\nDigite el nombre de la playlist:");
+		namePL = sc.nextLine();
+		System.out.println("\nDigite el titulo de la cancion del Pool que desea agregar:");
+		nameSong = sc.nextLine();
+		System.out.println("\nDigite el nombre del artista de la cancion del Pool que desea agregar:");
+		nameArtist = sc.nextLine();
+		if(option == 1) {
+			mainMCS.addSongtoPlay(namePL, nameSong, nameArtist);
+		}
+		else if(option == 2) {
+			
+			
+			System.out.println("\nDigite el nombre del usuario que va a crear la playlist:");
+			userName = sc.nextLine();
+			String message = mainMCS.addPlayList(namePL, userName);
+			System.out.println(message);
 		}
 		else if(option == 3) {
-				
-		}
 			
+			
+			System.out.println("\nDigite el nombre de los 5 integrantes de la playlist: \nNOTA: El usuario creador de la playlist debe ser el integrante 1");
+			for(int i = 0; i < userNames.length; i++) {
+				System.out.println("\nIntegrante:");
+				userNames[i] = sc.nextLine();
+			}
+			String message = mainMCS.addPlayList(namePL, userNames);
+			System.out.println(message);
+		}
 	}
 }

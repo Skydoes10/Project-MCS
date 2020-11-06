@@ -96,40 +96,50 @@ public class MCS{
 		String message = "La playlist se creo con exito";
 		boolean added = false;
 		Playlist objSearch = findPL(namePL);
-		if(objSearch == null){
-			for(int i = 0; i < MAX_PLAYLISTS && !added; i++){
-				if(playlists[i] == null){
-					playlists[i] = new PrivatePL(namePL, userName, 00);
-					added = true;
+		User objSearch2 = findUser(userName);
+		if(objSearch2 != null) {
+			if(objSearch == null){
+				for(int i = 0; i < MAX_PLAYLISTS && !added; i++){
+					if(playlists[i] == null){
+						playlists[i] = new PrivatePL(namePL, userName, 0);
+						added = true;
+					}
+				}
+				if (added == false){
+					message = "Limite de playlists alcanzado";
 				}
 			}
-			if (added == false){
-				message = "Limite de playlists alcanzado";
+			else{
+				message = "Una playlist con el mismo nombre ya ha sido creada";
 			}
 		}
-		else{
-			message = "Una playlist con el mismo nombre ya ha sido creada";
+		else {
+			message = "Usuario no encontrado";
 		}
 		return message;	
 	}
 		
 	public String addPlayList(String namePL, String[] userNames) {	
-		String message = "La playlist se creo con exito";
+		String message;
 		boolean added = false;
 		Playlist objSearch = findPL(namePL);
-		if(objSearch == null){
-			for(int i = 0; i < MAX_PLAYLISTS && !added; i++){
-				if(playlists[i] == null){
-					playlists[i] = new SharedPL(namePL, userNames, 00);
-					added = true;
+		message = findUser(userNames);
+		if(message == "") {
+			if(objSearch == null){
+				for(int i = 0; i < MAX_PLAYLISTS && !added; i++){
+					if(playlists[i] == null){
+						playlists[i] = new SharedPL(namePL, userNames, 0);
+						added = true;
+						message = "La playlist se creo con exito";
+					}
+				}
+				if (added == false){
+					message = "Limite de playlists alcanzado";
 				}
 			}
-			if (added == false){
-				message = "Limite de playlists alcanzado";
+			else{
+				message = "Una playlist con el mismo nombre ya ha sido creada";
 			}
-		}
-		else{
-			message = "Una playlist con el mismo nombre ya ha sido creada";
 		}
 		return message;	
 	}
@@ -141,7 +151,7 @@ public class MCS{
 		if(objSearch == null){
 		    for(int i = 0; i < MAX_PLAYLISTS && !added; i++){
 				if(playlists[i] == null){
-					playlists[i] = new PublicPL(namePL, 0.0, 00);
+					playlists[i] = new PublicPL(namePL, 0.0, 0);
 					added = true;
 				}
 			}
@@ -153,6 +163,34 @@ public class MCS{
 			message = "Una playlist con el mismo nombre ya ha sido creada";
 		}
 		return message;	
+	}
+	
+	public String addSongtoPlay(String namePL, String title, String nameArtist) {
+		String message = "La cancion se agrego con exito a la Playlist";
+		boolean added = false;
+		Playlist objSearch = findPL(namePL);
+		Song objSearch2 = findSong(title, nameArtist);
+		if(objSearch != null && objSearch2 != null) {
+			if(objSearch instanceof PublicPL){
+				objSearch.setDuration(objSearch2.getDuration());
+				for(int i = 0; i < objSearch.getPLGenres().length && !added; i++) {
+					if(objSearch.getPLGenres()[i] == objSearch2.getGenre()) {
+						added = true;
+					}
+					else if(objSearch.getPLGenres()[i] == null) {
+						objSearch.getPLGenres()[i] = objSearch2.getGenre();
+						added = true;
+					}
+				}
+			}
+				if (added == false){
+					message = "Limite de la playlist alcanzado";
+				}
+		}
+		else{
+			message = "La playlist o la cancion no existen";
+		}
+		return message;
 	}
 	
 	public User findUser(String userName){
@@ -167,21 +205,23 @@ public class MCS{
 		return objSearch;	
 	}
 	
-	public boolean amountSongs(String userName){
-		int amountSongs;
-		boolean search = true;
-		for(int i = 0; i < MAX_USERS && search; i++){
-			if(users[i] != null && users[i].getUserName().equalsIgnoreCase(userName)){
-				amountSongs = users[i].getAmountSongs();
-				amountSongs ++;
-				users[i].setAmountSongs(amountSongs);
-				search = false;
+	public String findUser(String[] userNames){
+		boolean end = false;
+		String userName, message = "";
+		for(int e = 0; e < userNames.length && !end; e++){
+			userName = userNames[e];
+			boolean found = false;
+			for(int i = 0; i < MAX_USERS; i++){	
+				if(users[i] != null && users[i].getUserName().equalsIgnoreCase(userName)){
+					found = true;
+				}
+			}
+			if(found == false) {
+				end = true;
+				message = "Un usuario no fue encontrado";
 			}
 		}
-		if(search == true) {
-			System.out.println("Usuario no encontrado");
-		}
-		return search;
+		return message;
 	}
 	
 	public Song findSong(String title,String artistName){
@@ -206,6 +246,23 @@ public class MCS{
 			}
 		}
 		return objSearch;
+	}
+	
+	public boolean amountSongs(String userName){
+		int amountSongs;
+		boolean search = true;
+		for(int i = 0; i < MAX_USERS && search; i++){
+			if(users[i] != null && users[i].getUserName().equalsIgnoreCase(userName)){
+				amountSongs = users[i].getAmountSongs();
+				amountSongs ++;
+				users[i].setAmountSongs(amountSongs);
+				search = false;
+			}
+		}
+		if(search == true) {
+			System.out.println("Usuario no encontrado");
+		}
+		return search;
 	}
 	
 	public void showUsers() {

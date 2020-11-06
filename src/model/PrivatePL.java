@@ -9,13 +9,23 @@ public class PrivatePL extends Playlist{
 		this.creatorUser = creatorUser;
 	}
 	
-	public String toString(){
-		return "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +getDuration()+ "\n **  Genre: " +getPLGenres()+ "\n **  Creator: " +creatorUser+ "\n********************************";
+	public String setCreatorUser(){
+		return creatorUser;
 	}
 	
+	public void getCreatorUser(String creatorUser) {
+		this.creatorUser = creatorUser;
+	}
 	
-	
-	
-	
+	public String toString(){ 
+		String out;
+		if(getPLGenres().length == 0) {
+			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +getDuration()+ "\n **  Genre:  \n **  Creator: " +creatorUser+ "\n************************************";
+		}
+		else {
+			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +getDuration()+ "\n **  Genre: " +getPLGenres()+ "\n **  Creator: " +creatorUser+ "\n************************************";
+		}
+		return out;
+	}	
 	
 }
