@@ -6,7 +6,7 @@ public class SharedPL extends Playlist{
 	
 	public SharedPL(String namePlaylist, String[] users, int duration){
 		super(namePlaylist, duration);
-		this.users = users;
+		users = new String[5];
 	}
 	
 	public String[] getUsers(){
@@ -20,19 +20,19 @@ public class SharedPL extends Playlist{
 	public String toString(){ 
 		String out;
 		if(getPLGenres().length == 0) {
-			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +getDuration()+ "\n **  Genre:  \n **  Members: " +members()+ "\n************************************";
+			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +convertDuration()+ "\n **  Genre:  \n **  Members: " +members()+ "\n************************************";
 		}
 		else {
-			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +getDuration()+ "\n **  Genre: " +getPLGenres()+ "\n **  Members: " +members()+ "\n************************************";
+			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +convertDuration()+ "\n **  Genre: " +getPLGenres()+ "\n **  Members: " +members()+ "\n************************************";
 		}
 		return out;
 	}
 	
 	public String members() {
-		return 	 "\n   **  "+users[0] +
-				 "\n   **  "+users[1] +
-				 "\n   **  "+users[2] +
-				 "\n   **  "+users[3] +
-				 "\n   **  "+users[4];
+		return  "\n   **  "+users[0] +
+				"\n   **  "+users[1] +
+				"\n   **  "+users[2] +
+				"\n   **  "+users[3] +
+				"\n   **  "+users[4];
 	}
 }

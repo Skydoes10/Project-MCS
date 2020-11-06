@@ -273,25 +273,19 @@ public class Main{
 		System.out.println("\nDigite el nombre del artista de la cancion del Pool que desea agregar:");
 		nameArtist = sc.nextLine();
 		if(option == 1) {
-			mainMCS.addSongtoPlay(namePL, nameSong, nameArtist);
+			String message = mainMCS.addSongtoPlay(namePL, nameSong, nameArtist);
+			System.out.println(message);
 		}
 		else if(option == 2) {
-			
-			
-			System.out.println("\nDigite el nombre del usuario que va a crear la playlist:");
+			System.out.println("\nDigite el nombre del usuario que va a agregar la cancion:");
 			userName = sc.nextLine();
-			String message = mainMCS.addPlayList(namePL, userName);
+			String message = mainMCS.addSongtoPlay(namePL, nameSong, nameArtist, userName);
 			System.out.println(message);
 		}
 		else if(option == 3) {
-			
-			
-			System.out.println("\nDigite el nombre de los 5 integrantes de la playlist: \nNOTA: El usuario creador de la playlist debe ser el integrante 1");
-			for(int i = 0; i < userNames.length; i++) {
-				System.out.println("\nIntegrante:");
-				userNames[i] = sc.nextLine();
-			}
-			String message = mainMCS.addPlayList(namePL, userNames);
+			System.out.println("\nDigite el nombre del usuario que va a agregar la cancion:");
+			userName = sc.nextLine();
+			String message = mainMCS.addSongtoPlay(namePL, nameSong, nameArtist, userName);
 			System.out.println(message);
 		}
 	}

@@ -62,15 +62,34 @@ public class Song{
 	
 	public String convertDuration() {
 		String converted = "";
-		int duration, minutes, seconds;
+		int duration, minutes, seconds, hours;
 		duration = getDuration();
-		minutes = duration/60;
-		seconds = duration-(minutes*60);
-		if(seconds < 10) {
-			converted = minutes +":0"+ seconds;
+		if(duration >= 3600) {
+			hours = duration/3600;
+			minutes = ((duration-hours*3600)/60);
+			seconds = duration-(hours*3600+minutes*60);
+			if(seconds < 10 && minutes > 10) {
+				converted = hours + minutes +":0"+ seconds;
+			}
+			else if(seconds > 10 && minutes < 10) {
+				converted = hours +":0"+ minutes +":"+ seconds;
+			}
+			else if(seconds < 10 && minutes < 10) {
+				converted = hours +":0"+ minutes +":0"+ seconds;
+			}
+			else {
+				converted = hours +":"+ minutes +":"+ seconds;
+			}
 		}
 		else {
-			converted = minutes +":"+ seconds;
+			minutes = duration/60;
+			seconds = duration-(minutes*60);
+			if(seconds < 10) {
+				converted = minutes +":0"+ seconds;
+			}
+			else {
+				converted = minutes +":"+ seconds;
+			}
 		}
 		return converted;
 	}

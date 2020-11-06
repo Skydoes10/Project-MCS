@@ -172,7 +172,7 @@ public class MCS{
 		Song objSearch2 = findSong(title, nameArtist);
 		if(objSearch != null && objSearch2 != null) {
 			if(objSearch instanceof PublicPL){
-				objSearch.setDuration(objSearch2.getDuration());
+				objSearch.setDuration(objSearch.getDuration() + objSearch2.getDuration());
 				for(int i = 0; i < objSearch.getPLGenres().length && !added; i++) {
 					if(objSearch.getPLGenres()[i] == objSearch2.getGenre()) {
 						added = true;
@@ -180,6 +180,53 @@ public class MCS{
 					else if(objSearch.getPLGenres()[i] == null) {
 						objSearch.getPLGenres()[i] = objSearch2.getGenre();
 						added = true;
+					}
+				}
+			}
+				if (added == false){
+					message = "Limite de la playlist alcanzado";
+				}
+		}
+		else{
+			message = "La playlist o la cancion no existen";
+		}
+		return message;
+	}
+	
+	public String addSongtoPlay(String namePL, String title, String nameArtist, String userName) {
+		String message = "La cancion se agrego con exito a la Playlist";
+		boolean added = false;
+		Playlist objSearch = findPL(namePL);
+		Song objSearch2 = findSong(title, nameArtist);
+		User objSearch3 = findUser(userName);
+		if(objSearch != null && objSearch2 != null && objSearch3 != null) {
+			if(objSearch instanceof PrivatePL){
+				if(((PrivatePL) objSearch).getCreatorUser().equalsIgnoreCase(objSearch3.getUserName())) {
+					objSearch.setDuration(objSearch.getDuration() + objSearch2.getDuration());
+					for(int i = 0; i < objSearch.getPLGenres().length && !added; i++) {
+						if(objSearch.getPLGenres()[i] == objSearch2.getGenre()) {
+							added = true;
+						}
+						else if(objSearch.getPLGenres()[i] == null) {
+							objSearch.getPLGenres()[i] = objSearch2.getGenre();
+							added = true;
+						}
+					}
+				}
+			}
+			else if(objSearch instanceof SharedPL) {
+				for(int e = 0; e < ((SharedPL) objSearch).getUsers().length; e++) {
+					if(((SharedPL) objSearch).getUsers()[e].equalsIgnoreCase(objSearch3.getUserName())) {
+						objSearch.setDuration(objSearch.getDuration() + objSearch2.getDuration());
+						for(int i = 0; i < objSearch.getPLGenres().length && !added; i++) {
+							if(objSearch.getPLGenres()[i] == objSearch2.getGenre()) {
+								added = true;
+							}
+							else if(objSearch.getPLGenres()[i] == null) {
+								objSearch.getPLGenres()[i] = objSearch2.getGenre();
+								added = true;
+							}
+						}
 					}
 				}
 			}
