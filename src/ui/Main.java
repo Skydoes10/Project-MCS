@@ -26,10 +26,10 @@ public class Main{
 								"\nSeleccione una opción para empezar:\n" + 
 								"\n(1) Crear un nuevo usuario" + 
 								"\n(2) Agregar cancion al Pool" + 
-								"\n(3) Agregar una cancion a una Playlist" + 
-								"\n(4) Crear una nueva playlist" + 
-								"\n(5) Mostrar informacion" + 
-								"\n(6) " +
+								"\n(3) Crear una nueva playlist" + 
+								"\n(4) Agregar una cancion a una Playlist" + 
+								"\n(5) Calificar playlist publica" + 
+								"\n(6) Mostrar informacion" +
 								"\n(0) Salir" +
 								"\n**********************************************************"
 								);
@@ -44,9 +44,9 @@ public class Main{
 				break;
 			case 4: menu2(option);
 				break;
-			case 5: menu3();
+			case 5: ratePlaylist();
 				break;
-			case 6: 
+			case 6: menu3();
 				break;
 			case 0: menu = false;
 					System.out.println("\nBye!");
@@ -112,7 +112,7 @@ public class Main{
 					);
 			int option = sc.nextInt();
 			sc.nextLine();
-			if(opt == 3) {
+			if(opt == 4) {
 				switch(option) {
 				case 1:	addSongtoPL(option);
 						menu = false;
@@ -209,7 +209,7 @@ public class Main{
 		title = sc.nextLine();
 		System.out.println("\nDigite el nombre del artista o banda: ");
 		artistName = sc.nextLine();
-		System.out.println("\nDigite la fecha de lanzamiento de la cancion: ");
+		System.out.println("\nDigite la fecha (Año) de lanzamiento de la cancion: ");
 		releaseDate = sc.nextLine();
 		System.out.println("\nDigite la duracion de la cancion en segundos: ");
 		duration = sc.nextInt();
@@ -288,5 +288,19 @@ public class Main{
 			String message = mainMCS.addSongtoPlay(namePL, nameSong, nameArtist, userName);
 			System.out.println(message);
 		}
+	}
+	
+	public void ratePlaylist() {
+		String namePL, userName;
+		double score;
+		System.out.println("\nDigite el nombre del usuario que va a realizar la calificacion:");
+		userName = sc.nextLine();
+		System.out.println("\nDigite el nombre de la playlist:");
+		namePL = sc.nextLine();
+		System.out.println("\nDigite una calificacion de 1 a 5 que le quiera dar a la playlist:");
+		score = sc.nextDouble();
+		sc.nextLine();
+		String message = mainMCS.ratePL(namePL, userName, score);
+		System.out.println(message);
 	}
 }

@@ -19,11 +19,11 @@ public class SharedPL extends Playlist{
 	
 	public String toString(){ 
 		String out;
-		if(getPLGenres().length == 0) {
+		if(getPLGenres()[0] == null) {
 			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +convertDuration()+ "\n **  Genre:  \n **  Members: " +members()+ "\n************************************";
 		}
 		else {
-			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +convertDuration()+ "\n **  Genre: " +getPLGenres()+ "\n **  Members: " +members()+ "\n************************************";
+			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +convertDuration()+ "\n **  Genre: " +printGenres()+ "\n **  Members: " +members()+ "\n************************************";
 		}
 		return out;
 	}
@@ -35,4 +35,5 @@ public class SharedPL extends Playlist{
 				"\n   **  "+users[3] +
 				"\n   **  "+users[4];
 	}
+	
 }

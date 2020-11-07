@@ -3,7 +3,7 @@ package model;
 public class MCS{
 	//Constants
 	public static final int MAX_USERS = 10;
-	public static final int MAX_SONGS = 20;
+	public static final int MAX_SONGS = 50;
 	public static final int MAX_PLAYLISTS = 50;
 	
 	//Attributes
@@ -151,7 +151,7 @@ public class MCS{
 		if(objSearch == null){
 		    for(int i = 0; i < MAX_PLAYLISTS && !added; i++){
 				if(playlists[i] == null){
-					playlists[i] = new PublicPL(namePL, 0.0, 0);
+					playlists[i] = new PublicPL(namePL, 0.0, 0, 0);
 					added = true;
 				}
 			}
@@ -179,6 +179,7 @@ public class MCS{
 					}
 					else if(objSearch.getPLGenres()[i] == null) {
 						objSearch.getPLGenres()[i] = objSearch2.getGenre();
+						objSearch.setPLGenres(objSearch.getPLGenres());
 						added = true;
 					}
 				}
@@ -236,6 +237,42 @@ public class MCS{
 		}
 		else{
 			message = "La playlist o la cancion no existen";
+		}
+		return message;
+	}
+	
+	public String ratePL(String namePL, String userName, double score) {
+		String message = "La calificaion fue un exito!";
+		double rate;
+		int amount = 0;
+		Playlist objSearch = findPL(namePL);
+		User objSearch2 = findUser(userName);
+		if(objSearch != null && objSearch2 != null) {
+			if(objSearch instanceof PublicPL) {
+				if(score <= 5) {
+					rate = ((PublicPL) objSearch).getScore();
+					rate += score;
+					amount++;
+					amount += ((PublicPL) objSearch).getAmountScores();
+					((PublicPL) objSearch).setScore(rate);
+					((PublicPL) objSearch).setAmountScores(amount);
+				}
+				else {
+					message = "La calificacion debe estar entre 1 y 5";
+				}
+			}
+			if(!(objSearch instanceof PublicPL)) {
+				message = "La playlist no es una playlist publica";
+			}
+		}
+		else if(objSearch != null && objSearch2 == null) {
+			message = "El usuario no esta registrado";
+		}
+		else if(objSearch == null && objSearch2 != null) {
+			message = "Playlist no encontrada";
+		}
+		else if(objSearch == null && objSearch2 == null) {
+			message = "Playlist no encontrada y el usuario no esta registrado";
 		}
 		return message;
 	}

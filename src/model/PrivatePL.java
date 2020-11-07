@@ -19,13 +19,13 @@ public class PrivatePL extends Playlist{
 	
 	public String toString(){ 
 		String out;
-		if(getPLGenres().length == 0) {
+		if(getPLGenres()[0] == null) {
 			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +convertDuration()+ "\n **  Genre:  \n **  Creator: " +creatorUser+ "\n************************************";
 		}
 		else {
-			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +convertDuration()+ "\n **  Genre: " +getPLGenres()+ "\n **  Creator: " +creatorUser+ "\n************************************";
+			out = "\n************* Playlist *************\n **  title: " +getNamePlaylist()+ "\n **  Duration: " +convertDuration()+ "\n **  Genre: " +printGenres()+ "\n **  Creator: " +creatorUser+ "\n************************************";
 		}
 		return out;
 	}	
-	
+
 }

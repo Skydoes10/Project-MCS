@@ -1,8 +1,6 @@
 package model;
 
 public class User{
-	//Constants
-	public static final int MAXPL = 5;
 	
 	//Attributes
 	private String userName;

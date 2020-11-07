@@ -2,7 +2,7 @@ package model;
 
 abstract public class Playlist{
 	//Constants
-	public static final int SIZE = 10;
+	public static final int SIZE = 7;
 	
 	//Relationships
 	private Genre[] genres;
@@ -84,5 +84,27 @@ abstract public class Playlist{
 			}
 		}
 		return converted;
+	}
+	
+	public String printGenres() {
+		boolean end = false;
+		String enviar = "";
+		if(genres[0] != null) {
+			enviar = ""+genres[0];
+		}
+		for(int i = 1; i < genres.length && !end; i++) {
+			if(genres[i] != null) {
+				if(genres[i-1] == genres[i]) {
+					end = true;
+				}
+				else {
+					enviar += ", "+genres[i];
+				}
+			}
+			else if(genres[i] == null) {
+				end = true;
+			}
+		}
+		return enviar;
 	}
 }
