@@ -10,6 +10,16 @@ public class Song{
 	//Relationships
 	private Genre genre;
 	
+	/**
+	 * Create a song. <br>
+	 * <b>pre: </b> Have registered the parameters to add a new song. <br>
+	 * <b>post: </b> Added the song. <br>
+	 * @param title Title of the song. title != "".
+	 * @param artistName Name of the artist of the song. artistName != "".
+	 * @param releaseDate Release date of the song. releaseDate != "".
+	 * @param duration Duration in seconds of the song. duration != 0.
+	 * @param genre Option chosen for the Genre of the song.
+	 */
 	//Builder
 	public Song(String title, String artistName, String releaseDate, int duration, Genre genre){
 		this.title = title;
@@ -60,6 +70,12 @@ public class Song{
 		this.genre = genre;
 	}
 	
+	/**
+	 * Convert the duration of the song. <br>
+	 * <b>pre: </b> There must be at least one registered song. <br>
+	 * <b>post: </b> Converted the duration of seconds to (hours) minutes and seconds. <br>
+	 * @return Duration converted.
+	 */
 	public String convertDuration() {
 		String converted = "";
 		int duration, minutes, seconds, hours;
@@ -94,6 +110,12 @@ public class Song{
 		return converted;
 	}
 	
+	/**
+	 * Organize song information. <br>
+	 * <b>pre: </b> There must be at least one registered song. <br>
+	 * <b>post: </b> The song information was organized for print. <br>
+	 * @return All song information organized.
+	 */
 	public String toString(){
 		return "\n************* Song *************\n **  Title: " +title+ "\n **  Artist: " +artistName+ "\n **  Duration: " +convertDuration()+ "\n **  Genre: " +genre+"\n********************************";
 	}

@@ -4,14 +4,21 @@ abstract public class Playlist{
 	//Constants
 	public static final int SIZE = 7;
 	
-	//Relationships
-	private Genre[] genres;
-	private Song[] songs;
-	
 	//Attributes
 	private String namePlaylist;
 	private int duration;
 	
+	//Relationships
+	private Genre[] genres;
+	private Song[] songs;
+	
+	/**
+	 * Create a playlsit. <br>
+	 * <b>pre: </b> Have registered the parameters to create a new playlist. <br>
+	 * <b>post: </b> Created a new playlist. <br>
+	 * @param namePlaylist Name of the playlist. namePlaylist != "".
+	 * @param duration Duration of the playlist. duration != 0.
+	 */
 	//Builder
 	public Playlist(String namePlaylist, int duration){
 		this.namePlaylist = namePlaylist;
@@ -52,6 +59,12 @@ abstract public class Playlist{
 		return genres;
 	}
 	
+	/**
+	 * Convert the duration of the playlist. <br>
+	 * <b>pre: </b> There must be at least one registered playlist. <br>
+	 * <b>post: </b> Converted the duration of seconds to (hours) minutes and seconds. <br>
+	 * @return Duration converted.
+	 */
 	public String convertDuration() {
 		String converted = "";
 		int duration, minutes, seconds, hours;
@@ -86,11 +99,17 @@ abstract public class Playlist{
 		return converted;
 	}
 	
+	/**
+	 * Organize the genres to print. <br>
+	 * <b>pre: </b> There must be at least one registered playlist and have added at least one song to the playlist. <br>
+	 * <b>post: </b> the genres have been organized to print. <br>
+	 * @return organized genres.
+	 */
 	public String printGenres() {
 		boolean end = false;
-		String enviar = "";
+		String send = "";
 		if(genres[0] != null) {
-			enviar = ""+genres[0];
+			send = ""+genres[0];
 		}
 		for(int i = 1; i < genres.length && !end; i++) {
 			if(genres[i] != null) {
@@ -98,13 +117,13 @@ abstract public class Playlist{
 					end = true;
 				}
 				else {
-					enviar += ", "+genres[i];
+					send += ", "+genres[i];
 				}
 			}
 			else if(genres[i] == null) {
 				end = true;
 			}
 		}
-		return enviar;
+		return send;
 	}
 }

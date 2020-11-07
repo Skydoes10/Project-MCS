@@ -6,26 +6,31 @@ public class MCS{
 	public static final int MAX_SONGS = 50;
 	public static final int MAX_PLAYLISTS = 50;
 	
-	//Attributes
-	private int numUsers;
-	private int numSongs;
-	private int amountPL;
-	
 	//Relationships
 	private User[] users;
 	private Playlist[] playlists;
 	private Song[] songsPool;
 	
+	/**
+	 * Create the MCS. <br>
+	 * <b>post: </b> user, song and playlist arrays are instantiated. <br>
+	 */
 	//Builder
 	public MCS(){
-		this.numUsers = MAX_USERS;
-		this.numSongs = MAX_SONGS;
-		this.amountPL = MAX_PLAYLISTS;
 		users = new User[MAX_USERS];
 		songsPool = new Song[MAX_SONGS];
 		playlists = new Playlist[MAX_PLAYLISTS];
 	}//End Builder
 	
+	/**
+	 * Create a new user according to the parameters. <br>
+	 * <b>pre: </b> Have registered the parameters to create the new user. <br>
+	 * <b>post: </b> Created the user if he had not been registered before or if the user limit has not been reached. <br>
+	 * @param userName Nickname of the user. userName != "".
+	 * @param password Password of the user. password != "".
+	 * @param age Age of the user. age != 0.
+	 * @return A message about the creation of the user.
+	 */
 	public String createUser(String userName, String password, int age){
 		String message = "El usuario ha sido registrado con exito";
 		boolean added = false;
@@ -47,6 +52,18 @@ public class MCS{
 		return message;
 	}
 	
+	/**
+	 * Add a new song to the pool of songs according to the parameters. <br>
+	 * <b>pre: </b> Have registered the parameters to add the new song. <br>
+	 * <b>post: </b> Added the song if it had not been added before or if the song limit has not been reached. <br>
+	 * @param title Title of the song. title != "".
+	 * @param artistName Name of the artist of the song. artistName != "".
+	 * @param releaseDate Release date of the song. releaseDate != "".
+	 * @param duration Duration in seconds of the song. duration != 0.
+	 * @param pGenre Option chosen for the Genre of the song. pGenre != 0.
+	 * @param userName Name of the user that add the song. userName != "".
+	 * @return A message about adding of the song.
+	 */
 	public String addSong(String title, String artistName, String releaseDate, int duration, int pGenre, String userName){
 		String message = "La cancion ha sido agregada con exito";
 		boolean added = false;
@@ -92,6 +109,14 @@ public class MCS{
 		return message;
 	}
 	
+	/**
+	 * Create a new playlist according to the parameters. <br>
+	 * <b>pre: </b> Have registered the parameters to create the new playlist. <br>
+	 * <b>post: </b> Created the playlist if it had not been created before or if the playlist limit has not been reached. <br>
+	 * @param namePL Name of the playlist. namePL != "".
+	 * @param userName Name of the user that create the playlist. userName != "".
+	 * @return A message about creation of the playlist.
+	 */
 	public String addPlayList(String namePL, String userName) {
 		String message = "La playlist se creo con exito";
 		boolean added = false;
@@ -118,7 +143,15 @@ public class MCS{
 		}
 		return message;	
 	}
-		
+	
+	/**
+	 * Create a new playlist according to the parameters. <br>
+	 * <b>pre: </b> Have registered the parameters to create the new playlist. <br>
+	 * <b>post: </b> Created the playlist if it had not been created before or if the playlist limit has not been reached. <br>
+	 * @param namePL Name of the playlist. namePL != "".
+	 * @param userNames Names of the users that create the playlist. userNames != null && userNames != "".
+	 * @return A message about creation of the playlist.
+	 */
 	public String addPlayList(String namePL, String[] userNames) {	
 		String message;
 		boolean added = false;
@@ -143,7 +176,14 @@ public class MCS{
 		}
 		return message;	
 	}
-			
+	
+	/**
+	 * Create a new playlist according to the parameters. <br>
+	 * <b>pre: </b> Have registered the parameters to create the new playlist. <br>
+	 * <b>post: </b> Created the playlist if it had not been created before or if the playlist limit has not been reached. <br>
+	 * @param namePL Name of the playlist. namePL != "".
+	 * @return A message about creation of the playlist.
+	 */
 	public String addPlayList(String namePL) {	
 		String message = "La playlist se creo con exito";
 		boolean added = false;
@@ -165,6 +205,15 @@ public class MCS{
 		return message;	
 	}
 	
+	/**
+	 * Add a song to a public laylist according to the parameters. <br>
+	 * <b>pre: </b> Have registered the parameters to add the song to the playlist. <br>
+	 * <b>post: </b> Added the song to the playlist if it had not been added before or if the song limit of the playlist has not been reached. <br>
+	 * @param namePL Name of the playlist. namePL != "".
+	 * @param title Title of the song. title != "".
+	 * @param nameArtist Name of the artist of the song. nameArtist != "".
+	 * @return A message about addition of the song to the playlist.
+	 */
 	public String addSongtoPlay(String namePL, String title, String nameArtist) {
 		String message = "La cancion se agrego con exito a la Playlist";
 		boolean added = false;
@@ -194,6 +243,16 @@ public class MCS{
 		return message;
 	}
 	
+	/**
+	 * Add a song to a private or shared playlist according to the parameters. <br>
+	 * <b>pre: </b> Have registered the parameters to add the song to the playlist. <br>
+	 * <b>post: </b> Added the song to the playlist if it had not been added before or if the song limit of the playlist has not been reached. <br>
+	 * @param namePL Name of the playlist. namePL != "".
+	 * @param title Title of the song. title != "".
+	 * @param nameArtist Name of the artist of the song. nameArtist != "".
+	 * @param userName Name of the user that add the song. userName != "".
+	 * @return A message about addition of the song to the playlist.
+	 */
 	public String addSongtoPlay(String namePL, String title, String nameArtist, String userName) {
 		String message = "La cancion se agrego con exito a la Playlist";
 		boolean added = false;
@@ -241,6 +300,15 @@ public class MCS{
 		return message;
 	}
 	
+	/**
+	 * Rate a public playlist according to the parameters. <br>
+	 * <b>pre: </b> Have registered the parameters to rate the playlist and the public playlist have been to created. <br>
+	 * <b>post: </b> Rated the playlist. <br>
+	 * @param namePL Name of the playlist. namePL != "".
+	 * @param userName Name of the user. userName != "".
+	 * @param score Score assigned by the user. score > 0 && score <= 5.
+	 * @return A message about rate of the playlist.
+	 */
 	public String ratePL(String namePL, String userName, double score) {
 		String message = "La calificaion fue un exito!";
 		double rate;
@@ -277,6 +345,13 @@ public class MCS{
 		return message;
 	}
 	
+	/**
+	 * Search if a user is registered. <br>
+	 * <b>pre: </b> Have registered the parameters for search the user. <br>
+	 * <b>post: </b> Find the user if this exist. <br>
+	 * @param userName Name of the user. userName != "".
+	 * @return All information of the user.
+	 */
 	public User findUser(String userName){
 		User objSearch = null;
 		boolean found = false;
@@ -289,6 +364,13 @@ public class MCS{
 		return objSearch;	
 	}
 	
+	/**
+	 * Search if a group of user are registered. <br>
+	 * <b>pre: </b> Have registered the parameters for search the users. <br>
+	 * <b>post: </b> Find users if they all exist. <br>
+	 * @param userNames Names of users. userNames != null && userNames != "".
+	 * @return message about if all users exist.
+	 */
 	public String findUser(String[] userNames){
 		boolean end = false;
 		String userName, message = "";
@@ -308,7 +390,15 @@ public class MCS{
 		return message;
 	}
 	
-	public Song findSong(String title,String artistName){
+	/**
+	 * Search if a song is added in the pool of songs. <br>
+	 * <b>pre: </b> Have registered the parameters for search the song. <br>
+	 * <b>post: </b> Find the song if this exist. <br>
+	 * @param title Title of the song. title != "".
+	 * @param artistName Name of the artist of the song. artistName != "".
+	 * @return All information of the song.
+	 */
+	public Song findSong(String title, String artistName){
 		Song objSearch = null;
 		boolean found = false;
 		for (int i = 0; i<MAX_SONGS && !found; i++) {
@@ -320,6 +410,13 @@ public class MCS{
 		return objSearch;
 	}
 	
+	/**
+	 * Search if a playlist exist. <br>
+	 * <b>pre: </b> Have registered the parameters for search the playlist. <br>
+	 * <b>post: </b> Find the playlist if this exist. <br>
+	 * @param namePL Name of the playlist. namePL != "".
+	 * @return All information of the playlist.
+	 */
 	public Playlist findPL(String namePL){
 		Playlist objSearch = null;
 		boolean found = false;
@@ -332,6 +429,13 @@ public class MCS{
 		return objSearch;
 	}
 	
+	/**
+	 * Count how many songs an user has added to the song pool. <br>
+	 * <b>pre: </b> A user have to be created. <br>
+	 * <b>post: </b> Reports if the user was found. <br>
+	 * @param userName Name of the user. userName != "".
+	 * @return If the user was found.
+	 */
 	public boolean amountSongs(String userName){
 		int amountSongs;
 		boolean search = true;
@@ -349,6 +453,11 @@ public class MCS{
 		return search;
 	}
 	
+	/**
+	 * Print all user information. <br>
+	 * <b>pre: </b> There must be at least one registered user. <br>
+	 * <b>post: </b> Print all user information . <br>
+	 */
 	public void showUsers() {
 		for(int i = 0; i < MAX_USERS; i++) {
 			if(users[i] != null) {
@@ -357,6 +466,11 @@ public class MCS{
 		}
 	}
 	
+	/**
+	 * Print all song information. <br>
+	 * <b>pre: </b> There must be at least one added song. <br>
+	 * <b>post: </b> Print all song information . <br>
+	 */
 	public void showSongs() {
 		for(int i = 0; i < MAX_SONGS; i++) {
 			if(songsPool[i] != null) {
@@ -365,6 +479,11 @@ public class MCS{
 		}
 	}
 	
+	/**
+	 * Print all playlist information. <br>
+	 * <b>pre: </b> There must be at least one created playlist. <br>
+	 * <b>post: </b> Print all playlist information . <br>
+	 */
 	public void showPlayLists() {
 		for(int i = 0; i < MAX_PLAYLISTS; i++) {
 			if(playlists[i] != null) {

@@ -8,6 +8,10 @@ public class Main{
 	private Scanner sc;
 	private MCS mainMCS;
 	
+	/**
+	 * The scanner is instantiated and sends to show the application logo. <br>
+	 * <b>post: </b> the scanner is instantiated. <br>
+	 */
 	public Main(){
 		sc = new Scanner(System.in);
 		createMCS();
@@ -18,6 +22,11 @@ public class Main{
 		objMain.menu();
 	}
 	
+	/**
+	 * Shows the main menu. <br>
+	 * <b>pre: </b> the scanner must have instantiated. <br>
+	 * <b>post: </b> the option chosen for the user. <br>
+	 */
 	public void menu(){
 		boolean menu = true;
 		int option;
@@ -57,6 +66,10 @@ public class Main{
 		}
 	}
 	
+	/**
+	 * Shows the application logo. <br>
+	 * <b>post: </b> Shows the logo. <br>
+	 */
 	public void createMCS() {
 		mainMCS = new MCS();
 		System.out.println("(((((((((((((((((((((((((((((((((((((((((((((((((\r\n" + 
@@ -98,6 +111,12 @@ public class Main{
 				);
 	}
 	
+	/**
+	 * Shows the submenu of the playlists. <br>
+	 * <b>pre: </b> Having chosen an option in the main menu. <br>
+	 * <b>post: </b> the option chosen in the submenu. <br>
+	 * @param opt  the option chosen in the main menu. opt == 4 || opt == 3.
+	 */
 	public void menu2(int opt) {
 		boolean menu = true;
 		while(menu) {
@@ -147,8 +166,11 @@ public class Main{
 		}
 	}
 	
-	
-	
+	/**
+	 * Shows the submenu of show information. <br>
+	 * <b>pre: </b> Having chosen an option in the main menu. <br>
+	 * <b>post: </b> the option chosen in this submenu. <br>
+	 */
 	public void menu3() {
 		boolean menu = true;
 		while(menu) {
@@ -180,6 +202,11 @@ public class Main{
 		}
 	}
 	
+	/**
+	 * Create a new user. <br>
+	 * <b>pre: </b> In the main menu has chosen the option for create a new user. <br>
+	 * <b>post: </b> A new user has been created. <br>
+	 */
 	public void createMUser(){
 		String userName, password;
 		int age;
@@ -195,10 +222,20 @@ public class Main{
 		System.out.println(message);
 	}
 	
+	/**
+	 * Show the list of all registered users. <br>
+	 * <b>pre: </b> There must be at least one registered user. <br>
+	 * <b>post: </b> Shows the list of all users. <br>
+	 */
 	public void listUsers() {
 		mainMCS.showUsers();	
 	}
 	
+	/**
+	 * Add a new song to the Pool of songs. <br>
+	 * <b>pre: </b> There must be at least one registered user. <br>
+	 * <b>post: </b> Add a new song to the Pool of songs. <br>
+	 */
 	public void addMSong() {
 		String title, artistName, releaseDate, userName;
 		int duration, genre;
@@ -229,10 +266,21 @@ public class Main{
 		System.out.println(message);
 	}
 	
+	/**
+	 * Show the list of all songs added to the song pool. <br>
+	 * <b>pre: </b> There must be at least one added song. <br>
+	 * <b>post: </b> Shows the list of all songs. <br>
+	 */
 	public void listSongs() {
 		mainMCS.showSongs();	
 	}
 	
+	/**
+	 * Create a new playlist. <br>
+	 * <b>pre: </b> Have chosen what type of playlist to create. <br>
+	 * <b>post: </b> Create a new playlist. <br>
+	 * @param option  the option chosen in the submenu of the playlists. option == 1 || option == 2 || option == 3.
+	 */
 	public void createPL(int option) {
 		String namePL, userName;
 		String[] userNames = new String[5];
@@ -259,13 +307,23 @@ public class Main{
 		}	
 	}
 	
+	/**
+	 * Show the list of all created playlists. <br>
+	 * <b>pre: </b> There must be at least one created playlist. <br>
+	 * <b>post: </b> Shows the list of all playlists. <br>
+	 */
 	public void listPL() {
 		mainMCS.showPlayLists();	
 	}
 	
+	/**
+	 * Add a song to a playlist. <br>
+	 * <b>pre: </b> There must be at least one created playlist and there must be at least one added song. <br>
+	 * <b>post: </b> Add the song to the playlist. <br>
+	 * @param option  the option chosen in the submenu of the playlists. option == 1 || option == 2 || option == 3.
+	 */
 	public void addSongtoPL(int option){
 		String namePL, nameSong, nameArtist, userName;
-		String[] userNames = new String[5];
 		System.out.println("\nDigite el nombre de la playlist:");
 		namePL = sc.nextLine();
 		System.out.println("\nDigite el titulo de la cancion del Pool que desea agregar:");
@@ -290,6 +348,11 @@ public class Main{
 		}
 	}
 	
+	/**
+	 * Rate a public playlist. <br>
+	 * <b>pre: </b> At least one public playlist must have been created. <br>
+	 * <b>post: </b> A public playlist has been rated. <br>
+	 */
 	public void ratePlaylist() {
 		String namePL, userName;
 		double score;
